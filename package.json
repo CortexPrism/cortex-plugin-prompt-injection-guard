@@ -1,6 +1,6 @@
 {
   "name": "cortex-plugin-prompt-injection-guard",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scans user and tool inputs for prompt injection attempts with 30+ detection patterns",
   "type": "module",
   "main": "mod.ts",

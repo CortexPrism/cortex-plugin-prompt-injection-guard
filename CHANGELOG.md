@@ -1,17 +1,13 @@
-# Changelog
+# Changelog — Prompt Injection Guard
 
-## [Unreleased]
+## [1.0.1] — 2026-06-15
 
-### Added
-- Initial project setup
+### Fixed
+- Removed `middleware:pre` capability — not yet implemented in Cortex runtime
+- Removed `preMiddleware` export from mod.ts
+- All injection scanning tools continue to work as standalone tools
 
 ## [1.0.0] — 2026-06-15
 
 ### Added
-- Initial release of cortex-plugin-prompt-injection-guard
-- `injection_scan` — Scan text with 30+ built-in patterns
-- `injection_patterns` — List patterns by category
-- `injection_whitelist` — Manage pattern whitelist
-- `injection_stats` — Detection statistics and block rates
-- `preMiddleware` — Pre-execution injection guard blocking high-score requests
-- 30+ detection patterns across direct, indirect, encoding, boundary, exfiltration categories
+- Initial plugin scaffold with 4 injection detection tools and 30+ patterns

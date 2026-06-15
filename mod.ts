@@ -107,38 +107,6 @@ function scanText(text: string, contextFilter: string): { detected: InjectionPat
   return { detected, score };
 }
 
-export async function preMiddleware(
-  args: Record<string, unknown>,
-  _ctx: ToolContext
-): Promise<ToolCallResult | void> {
-  if (!blockOnDetect) return;
-
-  for (const [key, value] of Object.entries(args)) {
-    if (typeof value !== "string") continue;
-    const { detected, score } = scanText(value, "user_input");
-
-    if (score >= 15) {
-      detectionStats.total++;
-      detectionStats.blocked++;
-      for (const ip of detected) {
-        detectionStats.byCategory[ip.category] = (detectionStats.byCategory[ip.category] || 0) + 1;
-      }
-
-      if (logInjections) {
-        console.warn(`[injection-guard] BLOCKED: score=${score}, patterns=${detected.map((d) => d.name).join(", ")}`);
-      }
-
-      return {
-        toolName: "preMiddleware",
-        success: false,
-        output: "",
-        error: `Prompt injection detected (score: ${score}). Request blocked by injection guard.`,
-        durationMs: 0,
-      };
-    }
-  }
-}
-
 const injectionScanTool: Tool = {
   definition: {
     name: "injection_scan",
