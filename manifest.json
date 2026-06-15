@@ -1,0 +1,69 @@
+{
+  "name": "cortex-plugin-prompt-injection-guard",
+  "version": "1.0.0",
+  "description": "Scans user and tool inputs for prompt injection attempts with 30+ detection patterns",
+  "kind": "esm",
+  "entryPoint": "mod.ts",
+  "runtime": "deno",
+  "author": "CortexPrism",
+  "license": "MIT",
+  "repository": "https://github.com/CortexPrism/cortex-plugin-prompt-injection-guard",
+  "homepage": "https://github.com/CortexPrism/cortex-plugin-prompt-injection-guard",
+  "capabilities": [
+    "tools",
+    "middleware:pre"
+  ],
+  "tools": [
+    {
+      "name": "injection_scan",
+      "description": "Scan text for prompt injection attempts using built-in detection patterns",
+      "params": [
+        { "name": "text", "type": "string", "description": "Text to scan for injection attempts", "required": true },
+        { "name": "context", "type": "string", "description": "Context of the text being scanned", "required": false, "default": "user_input", "enum": ["user_input", "tool_output", "system_message", "all"] }
+      ]
+    },
+    {
+      "name": "injection_patterns",
+      "description": "List active prompt injection detection patterns",
+      "params": [
+        { "name": "category", "type": "string", "description": "Filter patterns by category", "required": false }
+      ]
+    },
+    {
+      "name": "injection_whitelist",
+      "description": "Manage the injection whitelist (list, add, or remove patterns)",
+      "params": [
+        { "name": "action", "type": "string", "description": "Whitelist action to perform", "required": false, "default": "list", "enum": ["list", "add", "remove"] },
+        { "name": "pattern", "type": "string", "description": "Pattern to add or remove from whitelist", "required": false },
+        { "name": "reason", "type": "string", "description": "Reason for whitelist change", "required": false }
+      ]
+    },
+    {
+      "name": "injection_stats",
+      "description": "Get prompt injection detection statistics",
+      "params": [
+        { "name": "since", "type": "string", "description": "ISO date to filter statistics from", "required": false }
+      ]
+    }
+  ],
+  "dependencies": {},
+  "peerDependencies": {
+    "cortex": ">=1.0.0"
+  },
+  "aiDisclosure": {
+    "tools": ["Claude Code (Anthropic)"],
+    "humanReview": true
+  },
+  "ui": {
+    "section": "General",
+    "fields": [
+      { "key": "detectionThreshold", "label": "Detection Threshold", "type": "select", "description": "Sensitivity level for detection", "defaultValue": "medium", "options": [
+        { "label": "Low (lenient)", "value": "low" },
+        { "label": "Medium", "value": "medium" },
+        { "label": "High (strict)", "value": "high" }
+      ]},
+      { "key": "blockOnDetect", "label": "Block On Detection", "type": "boolean", "description": "Block tool execution when injection detected", "defaultValue": true },
+      { "key": "logInjections", "label": "Log Injections", "type": "boolean", "description": "Log all detected injection attempts", "defaultValue": true }
+    ]
+  }
+}
