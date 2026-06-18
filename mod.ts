@@ -13,13 +13,13 @@ export async function onLoad(ctx: PluginContext): Promise<void> {
   blockOnDetect = block !== 'false';
   logInjections = log !== 'false';
 
-  console.log(
+  ctx.logger.info(
     `[cortex-plugin-prompt-injection-guard] Loaded (threshold: ${detectionThreshold}, block: ${blockOnDetect}, log: ${logInjections})`,
   );
 }
 
-export async function onUnload(_ctx: PluginContext): Promise<void> {
-  console.log('[cortex-plugin-prompt-injection-guard] Unloading...');
+export async function onUnload(ctx: PluginContext): Promise<void> {
+  ctx.logger.info('[cortex-plugin-prompt-injection-guard] Unloading...');
 }
 
 interface InjectionPattern {

@@ -1,6 +1,6 @@
 {
   "name": "cortex-plugin-prompt-injection-guard",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Scans user and tool inputs for prompt injection attempts with 30+ detection patterns",
   "kind": "esm",
   "entryPoint": "mod.ts",
@@ -104,42 +104,46 @@
     "humanReview": true
   },
   "ui": {
-    "section": "General",
-    "fields": [
+    "settings": [
       {
-        "key": "detectionThreshold",
-        "label": "Detection Threshold",
-        "type": "select",
-        "description": "Sensitivity level for detection",
-        "defaultValue": "medium",
-        "options": [
+        "section": "General",
+        "fields": [
           {
-            "label": "Low (lenient)",
-            "value": "low"
+            "key": "detectionThreshold",
+            "label": "Detection Threshold",
+            "type": "select",
+            "description": "Sensitivity level for detection",
+            "default": "medium",
+            "enum": [
+              {
+                "label": "Low (lenient)",
+                "value": "low"
+              },
+              {
+                "label": "Medium",
+                "value": "medium"
+              },
+              {
+                "label": "High (strict)",
+                "value": "high"
+              }
+            ]
           },
           {
-            "label": "Medium",
-            "value": "medium"
+            "key": "blockOnDetect",
+            "label": "Block On Detection",
+            "type": "boolean",
+            "description": "Block tool execution when injection detected",
+            "default": true
           },
           {
-            "label": "High (strict)",
-            "value": "high"
+            "key": "logInjections",
+            "label": "Log Injections",
+            "type": "boolean",
+            "description": "Log all detected injection attempts",
+            "default": true
           }
         ]
-      },
-      {
-        "key": "blockOnDetect",
-        "label": "Block On Detection",
-        "type": "boolean",
-        "description": "Block tool execution when injection detected",
-        "defaultValue": true
-      },
-      {
-        "key": "logInjections",
-        "label": "Log Injections",
-        "type": "boolean",
-        "description": "Log all detected injection attempts",
-        "defaultValue": true
       }
     ]
   }
