@@ -1,6 +1,6 @@
 {
   "name": "cortex-plugin-prompt-injection-guard",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Scans user and tool inputs for prompt injection attempts with 30+ detection patterns",
   "kind": "esm",
   "entryPoint": "mod.ts",
@@ -28,7 +28,7 @@
           "type": "string",
           "description": "Context of the text being scanned",
           "required": false,
-          "default": "user_input",
+          "defaultValue": "user_input",
           "enum": [
             "user_input",
             "tool_output",
@@ -59,7 +59,7 @@
           "type": "string",
           "description": "Whitelist action to perform",
           "required": false,
-          "default": "list",
+          "defaultValue": "list",
           "enum": [
             "list",
             "add",
@@ -95,7 +95,7 @@
   ],
   "dependencies": {},
   "peerDependencies": {
-    "cortex": ">=1.0.0"
+    "cortex": ">=0.51.0"
   },
   "aiDisclosure": {
     "tools": [
@@ -113,8 +113,8 @@
             "label": "Detection Threshold",
             "type": "select",
             "description": "Sensitivity level for detection",
-            "default": "medium",
-            "enum": [
+            "defaultValue": "medium",
+            "options": [
               {
                 "label": "Low (lenient)",
                 "value": "low"
@@ -134,14 +134,14 @@
             "label": "Block On Detection",
             "type": "boolean",
             "description": "Block tool execution when injection detected",
-            "default": true
+            "defaultValue": true
           },
           {
             "key": "logInjections",
             "label": "Log Injections",
             "type": "boolean",
             "description": "Log all detected injection attempts",
-            "default": true
+            "defaultValue": true
           }
         ]
       }
